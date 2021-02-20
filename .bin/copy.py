@@ -1,5 +1,7 @@
 import shutil
 import os
+shutil.rmtree('.temp/boostrap', ignore_errors=True)
+shutil.rmtree('.temp/app', ignore_errors=True)
 discordpath = input("input discord path")
 try:
     try:
@@ -19,7 +21,7 @@ for dirs in dirlist:
         path = os.path.join(f"{discordpath}","modules",dirs,"discord_desktop_core")
         try:
             os.removedirs(".temp/app/")
-        except FileNotFoundError:
+        except:
             try:
                 os.mkdir(".temp/app/")
             except:
@@ -27,8 +29,17 @@ for dirs in dirlist:
         try:
             shutil.copytree(path, ".temp/app/")
         except:
-            os.removedirs(".temp/app/")
-            shutil.copytree(path, ".temp/app/")
+            try:
+                os.removedirs(".temp/app/")
+                shutil.copytree(path, ".temp/app/")
+            except:
+                try:
+                    os.removedirs(".temp/app/")
+                except:
+                    try:
+                        os.removedirs(".temp/app/")
+                    except:
+                        pass
 try:
     os.mkdir("src")
     os.mkdir("src/app")
