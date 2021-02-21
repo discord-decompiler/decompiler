@@ -1,0 +1,1 @@
+python .\.bin\copy.py
