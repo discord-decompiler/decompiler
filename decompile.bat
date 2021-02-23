@@ -1,1 +1,1 @@
-python .\.bin\copy.py
+python .\.bin\decompile.py

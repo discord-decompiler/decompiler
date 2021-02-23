@@ -1,4 +1,4 @@
 import os
 os.system('npm i -g asar')
-os.system('npm i -g electron')
-os.system('npm i -g electron-builder')
+os.system('cd .. && cd src && cd boostrap npm i electron --save')
+os.system('npm install -g electron-packager')

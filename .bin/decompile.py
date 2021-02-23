@@ -1,21 +1,16 @@
 import shutil
 import os
-import configparser
+discordpath = None #smh 
 shutil.rmtree('.temp/boostrap', ignore_errors=True)
 shutil.rmtree('.temp/app', ignore_errors=True)
+shutil.rmtree('.temp/modules', ignore_errors=True)
 
-config = configparser.ConfigParser()
-config.read('settings.ini')
-settings = config['settings']
-discordpath = settings['discordpath']
-if discordpath == "default":
+
+if discordpath == None:
     print('input discord path')
     discordpath = input()
-    settings["discordpath"] = discordpath
-    config.set('settings','discordpath',discordpath)
-    with open('settings.ini', 'w') as configfile:
-        config.write(configfile)
 try:
+    shutil.copy(f"{discordpath}/resources/app.asar ", '../.temp/boostrap/app.asar')
     try:
         os.mkdir("../.temp/boostrap")
         try:
@@ -52,7 +47,31 @@ for dirs in dirlist:
                         os.removedirs("../.temp/app/")
                     except:
                         pass
-settings["discordpath"] = discordpath
+
+try:
+    path = os.path.join(f"{discordpath}","modules")
+    shutil.copytree(path, "../.temp/modules/")
+    os.removedirs("../.temp/modules/")
+except:
+    try:
+        os.mkdir("../.temp/modules/")
+    except:
+        pass
+    try:
+        shutil.copytree(path, "../.temp/modules/")
+    except:
+        try:
+            os.removedirs("../.temp/modules/")
+            shutil.copytree(path, "../.temp/modules/")
+        except:
+            try:
+                os.removedirs("../.temp/modules/")
+            except:
+                try:
+                    os.removedirs("../.temp/modules/")
+                except:
+                    pass
+
 try:
     os.mkdir("../src")
     os.mkdir("../src/app")
